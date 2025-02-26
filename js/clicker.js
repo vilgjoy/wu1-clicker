@@ -253,3 +253,5 @@ function message(text, type) {
         p.parentNode.removeChild(p);
     }, 2000);
 }
+
+

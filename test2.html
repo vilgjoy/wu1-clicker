@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyberpunk Glitch Button</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #0a0a0a;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    .glitch-button {
+      position: relative;
+      padding: 20px 40px;
+      font-size: 1.5rem;
+      color: #00ffcc;
+      background: #111;
+      border: 2px solid #00ffcc;
+      cursor: pointer;
+      overflow: hidden;
+      text-transform: uppercase;
+      transition: background 0.3s ease-in-out, transform 0.1s ease-in-out;
+      font-family: 'Press Start 2P', cursive;
+      box-shadow: 0 0 20px #00ffcc;
+      display: inline-block;
+    }
+
+    .glitch-button::before,
+    .glitch-button::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #00ffcc;
+      opacity: 0.8;
+      clip-path: polygon(0 10%, 100% 10%, 100% 20%, 0 20%);
+      transform: translate(-100%, 0);
+    }
+
+    .glitch-button::after {
+      clip-path: polygon(0 80%, 100% 80%, 100% 90%, 0 90%);
+      transform: translate(100%, 0);
+    }
+
+    .glitch-button:hover {
+      background: #222;
+      color: #ff00ff;
+      animation: glitch-skew 0.2s ease-in-out infinite alternate;
+      box-shadow: 0 0 30px #ff00ff, 0 0 60px #00ffcc;
+    }
+
+    .glitch-button:hover::before {
+      transform: translate(0, 0);
+      animation: glitch-loop 0.2s linear infinite alternate-reverse;
+    }
+
+    .glitch-button:hover::after {
+      transform: translate(0, 0);
+      animation: glitch-loop 0.2s linear infinite alternate;
+    }
+
+    .glitch-button:active {
+      background: #ff00ff;
+      color: #00ffcc;
+      animation: glitch-pop 0.2s ease-in-out;
+    }
+
+    .glitch-word {
+      display: inline-block;
+      position: relative;
+      display: inline-block;
+    }
+
+    @keyframes glitch-loop {
+      0% {
+        clip-path: polygon(0 10%, 100% 10%, 100% 20%, 0 20%);
+      }
+
+      100% {
+        clip-path: polygon(0 70%, 100% 70%, 100% 80%, 0 80%);
+      }
+    }
+
+    @keyframes glitch-skew {
+      0% {
+        transform: skew(10deg);
+      }
+
+      100% {
+        transform: skew(-10deg);
+      }
+    }
+
+    @keyframes glitch-pop {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.1);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes glitch-text {
+      0% {
+        opacity: 1;
+        transform: translate(0, 0);
+      }
+      33% {
+        opacity: 0.8;
+        transform: translate(-3px, 3px) rotate(-3deg);
+      }
+      66% {
+        opacity: 0.6;
+        transform: translate(3px, -3px) rotate(3deg);
+      }
+      100% {
+        opacity: 1;
+        transform: translate(0, 0);
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <button class="glitch-button" id="glitchButton">Hack the system</button>
+
+  <script>
+    let glitchButton = document.getElementById('glitchButton');
+    let originalText = glitchButton.textContent;
+
+    
+    function getRandomCharacter() {
+      const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+      return characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+
+    
+    glitchButton.innerHTML = originalText
+      .split(' ')
+      .map(word => {
+        return `<span class="glitch-word" data-original="${word}">${word.split('').map(char => `<span class="glitch-char">${char}</span>`).join('')}</span>`;
+      })
+      .join(' ');
+
+    glitchButton.addEventListener('click', function () {
+      
+      document.querySelectorAll('.glitch-word').forEach(wordElement => {
+        const originalWord = wordElement.getAttribute('data-original');
+        
+        wordElement.querySelectorAll('.glitch-char').forEach((char, index) => {
+          
+          char.style.animation = `glitch-text 0.5s ease-in-out ${index * 0.05}s forwards`;
+          
+          
+          setTimeout(() => {
+            char.textContent = getRandomCharacter();
+          }, index * 50); 
+
+          
+          setTimeout(() => {
+            char.textContent = originalWord[index]; 
+          }, 500); 
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>

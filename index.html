@@ -5,93 +5,101 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"> <!-- Lägger till Google Fonts -->
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
-    <title>Fossiljägaren - Clicker exempel</title>
+    <title>CyberHacker - Clicker Spel</title>
 </head>
 
 <body>
-    <audio id="swoosh" src="audio/607251__d4xx__swoosh-2.wav"></audio>
+    <audio id="swoosh" src="audio/607251__d4xx__swoosh-2.wav" preload="auto"></audio>
+    
+    <!-- Regnseffekt -->
+    <div class="rain"></div>
+
     <header class="hero">
         <picture>
-            <source srcset="img/ashleigh-joy-photography-uyRku9KF2N8-unsplash-resize-s.jpg">
-            <source srcset="img/ashleigh-joy-photography-uyRku9KF2N8-unsplash-resize.jpg">
-            <source srcset="img/ashleigh-joy-photography-uyRku9KF2N8-unsplash-resize.webp">
-            <source srcset="img/ashleigh-joy-photography-uyRku9KF2N8-unsplash-resize-s.webp">
-            <img src="img/ashleigh-joy-photography-uyRku9KF2N8-unsplash-resize.jpg" alt="">
+            <source srcset="img/cyberpunk-background.webp" type="image/webp">
+            <img src="img/cyberpunk-background.jpg" alt="Cyberpunk city background">
         </picture>
         <div class="hero-gradient"></div>
         <div class="container hero-content">
-            <h1>Fossiljägaren</h1>
+            <h1>CyberHacker</h1>
             <div class="lead">
-                <p>Med entusiasm och bara händer ger du dig ut i jakten på fossil till ditt museum.</p>
-                <p>Värva hjälpredor och gräv dig till nya upptäckter.</p>
-                <p>Hur många besökare kan du få?</p>
+                <p>Hacka dig igenom säkra system och samla cyberpoäng.</p>
+                <p>Förbättra dina färdigheter och bli den bästa hackaren.</p>
             </div>
         </div>
     </header>
+
     <main class="container">
         <article class="game">
             <div class="game-hud">
                 <ul class="game-currency">
                     <li class="item">
-                        <h3>Benbitar: <span id="money"></span></h3>
+                        <h3>Cyberpoäng: <span id="points">0</span></h3>
                     </li>
                     <li class="item">
-                        <h3>Benbitar per klick: <span id="mpc"></span></h3>
+                        <h3>Cyberpoäng per klick: <span id="cpc">1</span></h3>
                     </li>
                     <li class="item">
-                        <h3>Benbitar per sekund: <span id="mps"></span></h3>
-                    </li>
-                    <li class="item">
-                        <h3>Uppgraderingar: <span id="upgrades"></span></h3>
+                        <h3>Automatiska Hackare: <span id="autoHackers">0</span></h3>
                     </li>
                 </ul>
                 <div class="game-controls">
-                    <button id="game-button">Gräv</button>
+                    <button id="game-button">Hacka!</button>
                 </div>
             </div>
-            <div class="w-100">
+            <div class="upgrades">
                 <h2>Uppgraderingar</h2>
                 <div id="upgradelist"></div>
             </div>
         </article>
     </main>
+
     <div id="msgbox"></div>
+
     <footer class="container footer">
         <div>
             <p>Hjälp till att fixa fel och lägga till funktioner:</p>
             <ul>
-                <li>
-                    <a href="https://github.com/jensnti/clicker/issues">issues</a>
-                </li>
-                <li>
-                    <a href="https://github.com/jensnti/clicker/pulls">pull requests</a>.
-                </li>
+                <li><a href="https://github.com/jensnti/clicker/issues" target="_blank" rel="noopener noreferrer">Issues</a></li>
+                <li><a href="https://github.com/jensnti/clicker/pulls" target="_blank" rel="noopener noreferrer">Pull Requests</a></li>
             </ul>
         </div>
         <div>
             <p>Credits:</p>
             <ul>
-                <li>
-                    <a href="https://freesound.org/s/607251/">Ljudeffekt</a>
-                </li>
-                <li>
-                    Photo by <a
-                        href="https://unsplash.com/@ashleighjoyphotography?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Ashleigh
-                        Joy Photography</a> on <a
-                        href="https://unsplash.com/photos/uyRku9KF2N8?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-                </li>
-                <li>
-                    Photo by <a
-                        href="https://unsplash.com/es/@bmeliti?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Brett
-                        Meliti</a> on <a
-                        href="https://unsplash.com/photos/RgkYMfFopIA?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-                </li>
+                <li><a href="https://freesound.org/s/607251/" target="_blank" rel="noopener noreferrer">Ljudeffekt</a></li>
             </ul>
         </div>
     </footer>
+
     <script src="js/clicker.js"></script>
+    <script>
+        // Skapa regnseffekten
+        const rainContainer = document.querySelector('.rain');
+
+        function createRainDrop() {
+            const rainDrop = document.createElement('span');
+            rainDrop.textContent = Math.random() > 0.5 ? '1' : '0'; // Väljer mellan 1 eller 0
+
+            // Slumpmässig position och timing för regndroppen
+            rainDrop.style.left = `${Math.random() * 100}vw`;
+            rainDrop.style.animationDuration = `${Math.random() * 3 + 2}s`; // Slumpmässig hastighet mellan 2 och 5 sekunder
+            rainDrop.style.animationDelay = `${Math.random() * 5}s`; // Slumpmässig fördröjning
+
+            rainContainer.appendChild(rainDrop);
+
+            // Ta bort regndroppen efter animationen
+            setTimeout(() => {
+                rainDrop.remove();
+            }, 7000); // Efter 7 sekunder (så länge som animationen tar)
+        }
+
+        // Skapa regn kontinuerligt
+        setInterval(createRainDrop, 100);
+    </script>
 </body>
 
 </html>

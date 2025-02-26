@@ -2,237 +2,225 @@
 /* @link https://utopia.fyi/space/calculator?c=320,18,1.2,1240,20,1.333,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
 
 :root {
-    --color-lighter: hsl(80, 10%, 90%);
-    --color-light: hsl(80, 10%, 80%);
-    --color-dark: hsl(360, 10%, 10%);
-    --color-dark-transparent: hsla(360, 10%, 10%, 0.2);
-
-    --step--1: clamp(0.94rem, calc(0.94rem + 0vw), 0.94rem);
-    --step-0: clamp(1.13rem, calc(1.08rem + 0.22vw), 1.25rem);
-    --step-1: clamp(1.35rem, calc(1.24rem + 0.55vw), 1.67rem);
-    --step-2: clamp(1.62rem, calc(1.41rem + 1.05vw), 2.22rem);
-
-    --space-xs-s: clamp(0.88rem, calc(0.74rem + 0.65vw), 1.25rem);
-    --space-s-m: clamp(1.13rem, calc(0.86rem + 1.3vw), 1.88rem);
-    --space-m-l: clamp(1.69rem, calc(1.4rem + 1.41vw), 2.5rem);
-    --space-l-xl: clamp(2.25rem, calc(1.73rem + 2.61vw), 3.75rem);
-
-    --space-2xl-3xl: clamp(4.5rem, calc(3.46rem + 5.22vw), 7.5rem);
-
-    --space-4xl-5xl: clamp(7.88rem, calc(7.14rem + 3.7vw), 10rem);
+    --color-dark: #121212;
+    --color-light: #00ff99; /* Neon grön */
+    --color-accent: #ff0055; /* Neon rosa */
+    --color-bg: #1b1b1b; /* Mörk bakgrund för en futuristisk känsla */
+    --color-border: rgba(255, 255, 255, 0.1); /* Subtil border för att ge djup */
+    
+    --font-primary: 'Press Start 2P', cursive; /* Pixelfont för retro-känsla */
+    
+    --step-0: clamp(1rem, calc(1rem + 0.5vw), 1.25rem);
+    --step-1: clamp(1.5rem, calc(1.5rem + 1vw), 2rem);
+    --space-s: clamp(1rem, calc(1rem + 1vw), 1.5rem);
+    --space-m: clamp(1.5rem, calc(1.5rem + 2vw), 2.5rem);
+    --space-l: clamp(2rem, calc(2rem + 3vw), 3rem);
 }
 
 body {
-    background-color: var(--color-light);
-    color: var(--color-dark);
-    font-family: sans-serif;
-    font-size: var(--step-0);
+    background-color: var(--color-bg);
+    color: var(--color-light);
+    font-family: var(--font-primary), sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow: auto; 
+    position: relative;
 }
 
-h1 {
-    font-size: var(--step-2);
+h1, h2 {
     text-transform: uppercase;
-    font-weight: 700;
-    max-width: 20ch;
+    font-weight: bold;
+    letter-spacing: 2px;
 }
 
-/* göm audio, används för att preloada ljudet */
-audio {
-    display: none;
-}
-
-.container {
-    width: min(80ch, 100vw - var(--space-l-xl));
-    margin-inline: auto;
-}
-
-.footer {
-    --min: 30ch;
-
-    margin-top: auto;
-    padding: var(--space-l-xl) 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--min)), 1fr));
-    gap: var(--space-s-m);
-}
-.footer > * {
-    font-size: var(--step--1);
-}
 .hero {
-    display: grid;
-    grid-template-areas: 'stack';
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: var(--space-l) 0;
+    background: linear-gradient(180deg, var(--color-dark) 30%, var(--color-bg));
+    position: relative;
+    z-index: 1; /* Gör så att innehållet är över regnet */
 }
 
-.hero-gradient {
-    grid-area: stack;
-    place-self: end;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        0deg,
-        var(--color-dark),
-        var(--color-dark-transparent)
-    );
-}
 
-.hero > picture {
-    place-self: center;
-    grid-area: stack;
-    width: 100%;
-    height: 100%;
+.hero h1 {
+    font-size: var(--step-1);
+    color: var(--color-accent);
+    text-shadow: 0 0 10px var(--color-accent);
 }
 
 .hero img {
     width: 100%;
-    height: 40vh;
-    aspect-ratio: 16/9;
+    height: auto;
+    max-height: 50vh;
     object-fit: cover;
 }
 
-.hero-content {
-    grid-area: stack;
-    place-self: end;
-    padding: var(--space-m-l) 0;
-    color: var(--color-light);
-}
-
-@media (max-width: 30rem) {
-    .lead {
-        display: none;
-    }
-    .hero > picture {
-        max-height: 15vh;
-    }
-}
-
 .game {
-    margin-top: var(--space-m-l);
+    margin-top: var(--space-m);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* flex och space between ordnar layouten för speldata och knappen på desktop */
 .game-hud {
     display: flex;
     justify-content: space-between;
+    width: 100%;
+    padding: var(--space-s);
 }
 
 .game-currency {
     list-style: none;
     padding: 0;
+    margin: 0;
+    display: flex;
+    gap: var(--space-s);
 }
 
-/* game-currency är en lista med list items */
-.item > h3 {
+.item h3 {
+    font-size: var(--step-0);
     display: flex;
     justify-content: space-between;
-    gap: var(--space-xs-s);
+    align-items: center;
 }
 
-@media (max-width: 30rem) {
-    .game-hud {
-        flex-direction: column-reverse;
-    }
-    .game-controls {
-        place-self: center;
-    }
-}
-
-/* för spelelementet används #id som selektor för att skapa css reglerna */
 #game-button {
-    width: var(--space-4xl-5xl);
-    height: var(--space-4xl-5xl);
-    font-size: var(--step-2);
-    background: url('../img/brett-meliti-RgkYMfFopIA-unsplash-removebg-preview.png');
-    background-size: cover;
-    background-position: center;
-    border: 2px solid transparent;
-    color: var(--color-light);
-    text-transform: uppercase;
-    font-weight: 700;
+    background-color: var(--color-accent);
+    color: var(--color-dark);
+    border: none;
+    padding: var(--space-m);
+    font-size: var(--step-1);
     cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
 }
 
 #game-button:hover {
-    border-color: var(--color-dark-transparent);
+    background-color: var(--color-light);
+    color: var(--color-dark);
+    box-shadow: 0 0 30px rgba(0, 255, 153, 0.5);
 }
 
 #game-button:active {
-    border-color: var(--color-dark);
-    background-color: var(--color-dark-transparent);
+    background-color: var(--color-dark);
+    color: var(--color-accent);
+    box-shadow: none;
 }
 
-/* #msgbox är elementet som visar sidans toasts, popupmeddelanden
-* fixed fungerar liknande absolute för att positionera element på ett fast ställe
-* vi använder måttet vmin som skalas efter webbläsarens storlek
-*/
 #msgbox {
     position: fixed;
-    right: 2vmin;
-    bottom: 2vmin;
-    min-width: 16rem;
-}
-
-#msgbox > p {
-    margin-bottom: var(--space-xs-s);
-    padding: var(--space-xs-s);
-}
-
-/* de här klasserna används för att bestämma stilen på de olika storternas
- * meddelanden. Javascript används för att lägga till stilen på meddelandet
- */
-.warning {
-    background-color: palevioletred;
-}
-
-.success {
-    background-color: mediumspringgreen;
-}
-
-.achievement {
+    bottom: 2rem;
+    right: 2rem;
+    padding: var(--space-s);
+    background-color: rgba(0, 0, 0, 0.8);
     color: var(--color-light);
-    background-color: rebeccapurple;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 255, 153, 0.3);
+    font-size: var(--step-0);
+    min-width: 200px;
 }
 
-/* dessa kort används för spelets uppgraderingar 
- * lägg märke till padding och margin för att ge elementen lite luft och 
- * skapa en mer lättläst struktur
- */
 .card {
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid var(--color-border);
+    padding: var(--space-s);
     display: flex;
     justify-content: space-between;
     cursor: pointer;
-    border: 1px solid var(--color-dark-transparent);
-    margin: var(--space-xs-s) 0;
-    padding: var(--space-s-m) var(--space-xs-s);
+    border-radius: 5px;
+    transition: all 0.3s ease;
 }
 
 .card:hover {
-    background-color: var(--color-lighter);
+    background-color: var(--color-accent);
+    border-color: var(--color-light);
+    color: var(--color-dark);
 }
 
-.card p:not(.title) {
+.card p {
     text-align: end;
 }
-/* klassen används på kortets titel, font-weight: 600 gör fonten fetare, en normal
- * font vikt är oftast 400
- */
+
 .title {
-    font-weight: 600;
+    font-weight: bold;
+    color: var(--color-light);
 }
 
-/* animation och klass för att blinka texten */
+.footer {
+    padding: var(--space-l);
+    background-color: var(--color-dark);
+    color: var(--color-light);
+    text-align: center;
+    margin-top: auto;
+}
+
+.footer a {
+    color: var(--color-light);
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: var(--color-accent);
+}
+
+@media (max-width: 768px) {
+    .game-hud {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .game-currency {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .game-controls {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+/* regn (ettor och nollor) */
+
+.rain {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;  
+    pointer-events: none;
+}
+
+.rain span {
+    position: absolute;
+    top: -10px;
+    color: rgba(0, 255, 0, 0.6);
+    font-size: 20px;
+    animation: fall 5s linear infinite;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh);
+    }
+}
 
 @keyframes flash {
     0% {
-        color: var(--color-dark);
+        opacity: 0.2;
     }
     50% {
-        color: var(--color-dark-transparent);
+        opacity: 1;
     }
     100% {
-        color: var(--color-dark);
+        opacity: 0.2;
     }
-}
-
-.active {
-    animation: flash 1s infinite;
 }
