@@ -14,7 +14,7 @@
 <body>
     <audio id="swoosh" src="audio/607251__d4xx__swoosh-2.wav" preload="auto"></audio>
     
-    <!-- Regnseffekt -->
+   
     <div class="rain"></div>
 
     <header class="hero">
@@ -77,27 +77,27 @@
 
     <script src="js/clicker.js"></script>
     <script>
-        // Skapa regnseffekten
+        
         const rainContainer = document.querySelector('.rain');
 
         function createRainDrop() {
             const rainDrop = document.createElement('span');
-            rainDrop.textContent = Math.random() > 0.5 ? '1' : '0'; // Väljer mellan 1 eller 0
+            rainDrop.textContent = Math.random() > 0.5 ? '1' : '0'; 
 
-            // Slumpmässig position och timing för regndroppen
+            
             rainDrop.style.left = `${Math.random() * 100}vw`;
-            rainDrop.style.animationDuration = `${Math.random() * 3 + 2}s`; // Slumpmässig hastighet mellan 2 och 5 sekunder
-            rainDrop.style.animationDelay = `${Math.random() * 5}s`; // Slumpmässig fördröjning
+            rainDrop.style.animationDuration = `${Math.random() * 3 + 2}s`;
+            rainDrop.style.animationDelay = `${Math.random() * 5}s`; 
 
             rainContainer.appendChild(rainDrop);
 
-            // Ta bort regndroppen efter animationen
+            
             setTimeout(() => {
                 rainDrop.remove();
-            }, 7000); // Efter 7 sekunder (så länge som animationen tar)
+            }, 7000); 
         }
 
-        // Skapa regn kontinuerligt
+        
         setInterval(createRainDrop, 100);
     </script>
 </body>
