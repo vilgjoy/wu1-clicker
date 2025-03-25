@@ -31,21 +31,28 @@ let last = 0;
 let numberOfClicks = 0; // hur många gånger har spelare eg. klickat
 let active = false; // exempel för att visa att du kan lägga till klass för att indikera att spelare får valuta
 
+
 // likt upgrades skapas här en array med objekt som innehåller olika former
 // av achievements.
 // requiredSOMETHING är vad som krävs för att få dem
 
 let achievements = [
     {
-        description: 'Museet är redo att öppna, grattis! ',
+        description: 'Första Hacken ',
         requiredUpgrades: 1,
         acquired: false,
     },
     {
-        description: 'Nu börjar det likna något, fortsätt gräva!',
+        description: 'Nu börjar det likna något, fortsätt!',
         requiredUpgrades: 10,
         acquired: false,
     },
+    {
+        description: 'Superskribent',
+        requiredUpgrades: 50,
+        acquired: false,
+    },
+    
     {
         description: 'Klickare, med licens att klicka!',
         requiredClicks: 10,
@@ -93,7 +100,8 @@ function step(timestamp) {
     moneyTracker.textContent = Math.round(money);
     mpsTracker.textContent = moneyPerSecond;
     mpcTracker.textContent = moneyPerClick;
-    upgradesTracker.textContent = acquiredUpgrades;
+    
+    
 
     if (timestamp >= last + 1000) {
         money += moneyPerSecond;
@@ -163,22 +171,22 @@ window.addEventListener('load', (event) => {
  */
 upgrades = [
     {
-        name: 'Sop',
+        name: 'Auto Hackers',
         cost: 10,
         amount: 1,
     },
     {
-        name: 'Kvalitetsspade',
+        name: 'Faster Hacking',
         cost: 50,
         clicks: 2,
     },
     {
-        name: 'Skottkärra',
+        name: 'AI',
         cost: 100,
         amount: 10,
     },
     {
-        name: 'Grävmaskin',
+        name: 'Company',
         cost: 1000,
         amount: 100,
     },
@@ -213,14 +221,14 @@ function createCard(upgrade) {
     } else {
         header.textContent = `${upgrade.name}, +${upgrade.clicks} per klick.`;
     }
-    cost.textContent = `Köp för ${upgrade.cost} benbitar.`;
+    cost.textContent = `Köp för ${upgrade.cost} cyberpoäng.`;
 
     card.addEventListener('click', (e) => {
         if (money >= upgrade.cost) {
             acquiredUpgrades++;
             money -= upgrade.cost;
             upgrade.cost *= 1.5;
-            cost.textContent = 'Köp för ' + upgrade.cost + ' benbitar';
+            cost.textContent = 'Köp för ' + upgrade.cost + ' cyberpoäng';
             moneyPerSecond += upgrade.amount ? upgrade.amount : 0;
             moneyPerClick += upgrade.clicks ? upgrade.clicks : 0;
             message('Grattis du har köpt en uppgradering!', 'success');

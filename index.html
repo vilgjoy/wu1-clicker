@@ -14,14 +14,16 @@
 <body>
     <audio id="swoosh" src="audio/607251__d4xx__swoosh-2.wav" preload="auto"></audio>
     
-   
+    <div id="menu-button">☰</div>
+    <div id="hacking-menu" class="hidden">
+    <h2>Hacking Terminal</h2>
+    <button id="start-hack">Starta minigame</button>
+    </div>
+
     <div class="rain"></div>
 
     <header class="hero">
-        <picture>
-            <source srcset="img/cyberpunk-background.webp" type="image/webp">
-            <img src="img/cyberpunk-background.jpg" alt="Cyberpunk city background">
-        </picture>
+
         <div class="hero-gradient"></div>
         <div class="container hero-content">
             <h1>CyberHacker</h1>
@@ -37,20 +39,20 @@
             <div class="game-hud">
                 <ul class="game-currency">
                     <li class="item">
-                        <h3>Cyberpoäng: <span id="points">0</span></h3>
+                        <h3>Cyberpoäng: <span id="money">0</span></h3>
                     </li>
                     <li class="item">
-                        <h3>Cyberpoäng per klick: <span id="cpc">1</span></h3>
+                        <h3>Cyberpoäng per klick: <span id="mpc">1</span></h3>
                     </li>
                     <li class="item">
-                        <h3>Automatiska Hackare: <span id="autoHackers">0</span></h3>
+                        <h3>Automatiska Hackare: <span id="mps">0</span></h3>
                     </li>
                 </ul>
                 <div class="game-controls">
-                    <button id="game-button">Hacka!</button>
+                    <button class="glitch-button" id="game-button">Hack the system</button>
                 </div>
             </div>
-            <div class="upgrades">
+            <div class="upgrades" id="upgrades">
                 <h2>Uppgraderingar</h2>
                 <div id="upgradelist"></div>
             </div>
@@ -99,6 +101,47 @@
 
         
         setInterval(createRainDrop, 100);
+    </script>
+
+    <script>
+        let glitchButton = document.getElementById('game-button');
+        let originalText = glitchButton.textContent;
+
+        
+        function getRandomCharacter() {
+        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+        return characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+
+        
+        glitchButton.innerHTML = originalText
+        .split(' ')
+        .map(word => {
+            return `<span class="glitch-word" data-original="${word}">${word.split('').map(char => `<span class="glitch-char">${char}</span>`).join('')}</span>`;
+        })
+        .join(' ');
+
+        glitchButton.addEventListener('click', function () {
+        
+        document.querySelectorAll('.glitch-word').forEach(wordElement => {
+            const originalWord = wordElement.getAttribute('data-original');
+            
+            wordElement.querySelectorAll('.glitch-char').forEach((char, index) => {
+            
+            char.style.animation = `glitch-text 0.5s ease-in-out ${index * 0.05}s forwards`;
+            
+            
+            setTimeout(() => {
+                char.textContent = getRandomCharacter();
+            }, index * 50); 
+
+            
+            setTimeout(() => {
+                char.textContent = originalWord[index]; 
+            }, 500); 
+            });
+        });
+        });
     </script>
 </body>
 
