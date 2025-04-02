@@ -8,7 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"> <!-- Lägger till Google Fonts -->
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
-    <title>CyberHacker - Clicker Spel</title>
+    <link rel="stylesheet" href="css/menu.css">
+    <title>CyberHacker - clicker spel</title>
 </head>
 
 <body>
@@ -56,7 +57,26 @@
 
     <div id="msgbox"></div>
 
+    <div id="menu-container" class="menu-container">
+        <div id="menu-button" class="menu-button">☰ Menu</div>
+        <div id="menu-items" class="menu-items">
+            <button id="getDataBtn">Get Data</button>
+        </div>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Code Breaker</h2>
+            <p id="code-sequence">Generar kod</p>
+            <input type="text" id="user-input" placeholder="Enter the code" maxlength="6">
+            <button id="submit-code">submit</button>
+            <p id="result-message"></p>
+        </div>
+    </div>
+
     <script src="js/clicker.js"></script>
+    <script src="js/menu.js"></script>
     <script>
         
         const rainContainer = document.querySelector('.rain');

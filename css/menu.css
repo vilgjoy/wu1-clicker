@@ -1,0 +1,95 @@
+/* menu */
+
+.menu-container {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    font-family: "Press Start 2P", cursive;
+    z-index: 2;
+}
+
+.menu-items {
+    display: none;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.menu-items button {
+    background: #00ff99;
+    border: none;
+    padding: 8px;
+    margin-top: 5px;
+    cursor: pointer;
+    font-family: "Press Start 2P", cursive;
+}
+
+.menu-items.show {
+    display: flex;
+}
+
+/* modal box */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    margin: 15% auto;
+    width: 300px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+
+.close {
+    float: right;
+    font-size: 20px;
+    cursor: pointer;
+    color: red;
+}
+
+/* minigame 1 */
+
+#code-sequence {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #ff5733;
+}
+
+#user-input {
+    width: 80%;
+    padding: 5px;
+    text-align: center;
+    font-size: 16px;
+    font-family: "Press Start 2P", cursive;
+    margin-bottom: 10px;
+}
+
+#submit-code {
+    background: #00ff99;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    font-family: "Press Start 2P", cursive;
+}
+
+#result-message {
+    font-size: 18px;
+    margin-top: 10px;
+    font-weight: bold;
+}
