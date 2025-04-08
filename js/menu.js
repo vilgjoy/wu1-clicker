@@ -54,11 +54,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     submitCode.addEventListener("click", function () {
         if (userInput.value.toUpperCase() === generatedCode) {
-            resultMessage.innerText = "✅ Correct! You earned data.";
+            resultMessage.innerText = "✅ Korrect! Du fick data";
             resultMessage.style.color = "green";
             // reward player
         } else {
-            resultMessage.innerText = "❌ Wrong! Try again.";
+            resultMessage.innerText = "❌ Fel! försök igen";
             resultMessage.style.color = "red";
         }
     });
